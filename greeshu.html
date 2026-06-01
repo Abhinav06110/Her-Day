@@ -1,0 +1,493 @@
+Here is your updated `birthday.html` file. The placeholders inside the `<div class="gallery">` section have been replaced with proper `<img>` tags pointing directly to your four specific file names verbatim.
+
+The blank placeholder elements have been updated to cleanly display your image files:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Poppins:wght=300;400;500;600&display=swap');
+
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #ffd89b;
+            --accent: #fff5e1;
+            --dark: #2c2c2c;
+            --light: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4f0 50%, #fff5e1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 107, 157, 0.3);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 900;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: -1px;
+        }
+
+        .hero .emoji {
+            display: inline-block;
+            font-size: 3rem;
+            animation: bounce 2s infinite;
+            margin: 0 10px;
+        }
+
+        .hero .emoji:nth-child(2) { animation-delay: 0.1s; }
+        .hero .emoji:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        /* Photo Gallery */
+        .gallery-section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+            animation: scaleIn 0.6s ease-out both;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.4);
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0.1s; }
+        .photo-item:nth-child(2) { animation-delay: 0.2s; }
+        .photo-item:nth-child(3) { animation-delay: 0.3s; }
+        .photo-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 107, 157, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .heart-icon {
+            font-size: 2.5rem;
+            animation: heartbeat 0.6s ease;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* Message Section */
+        .message-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin: 80px 0;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            border: 1px solid rgba(255, 107, 157, 0.1);
+        }
+
+        .message-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .message-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .custom-message {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 216, 155, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Birthday Wish */
+        .wishes-section {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .wishes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .wish-card {
+            background: var(--light);
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.15);
+            transition: transform 0.3s ease;
+            animation: slideUp 0.6s ease-out both;
+        }
+
+        .wish-card:nth-child(1) { animation-delay: 0.6s; }
+        .wish-card:nth-child(2) { animation-delay: 0.7s; }
+        .wish-card:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wish-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .wish-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .wish-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .wish-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .footer .hearts {
+            margin: 20px 0;
+            letter-spacing: 5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .message-section {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>
+                <span class="emoji">🎉</span>
+                Happy Birthday!
+                <span class="emoji">💕</span>
+            </h1>
+            <p>To the most amazing person in my life</p>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="gallery-section">
+            <h2 class="section-title">Our Beautiful Memories ✨</h2>
+            <div class="gallery" id="gallery">
+                <!-- Photo 1 -->
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2026-05-02 at 18.49.31.jpeg" alt="Birthday Memory 1">
+                    <div class="photo-overlay">
+                        <span class="heart-icon">❤️</span>
+                    </div>
+                </div>
+                <!-- Photo 2 -->
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2026-05-09 at 14.27.48.jpg" alt="Birthday Memory 2">
+                    <div class="photo-overlay">
+                        <span class="heart-icon">❤️</span>
+                    </div>
+                </div>
+                <!-- Photo 3 -->
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2026-05-20 at 22.18.41.jpg" alt="Birthday Memory 3">
+                    <div class="photo-overlay">
+                        <span class="heart-icon">❤️</span>
+                    </div>
+                </div>
+                <!-- Photo 4 -->
+                <div class="photo-item">
+                    <img src="ChatGPT Image May 9, 2026 at 11_13_31 PM.png" alt="Birthday Memory 4">
+                    <div class="photo-overlay">
+                        <span class="heart-icon">❤️</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Section -->
+        <div class="message-section">
+            <h2>A Special Message For You 💌</h2>
+            <p>Every day with you is a blessing. You bring joy, laughter, and endless happiness into my life. Today is your day, and I want you to know just how much you mean to me.</p>
+            <p>Thank you for being the incredible person you are. Happy Birthday to my love! 🎂</p>
+            <div class="custom-message">
+                "You are my today and all of my tomorrows." ✨
+            </div>
+        </div>
+
+        <!-- Birthday Wishes -->
+        <div class="wishes-section">
+            <h2 class="section-title">This Year I Wish For You 🌟</h2>
+            <div class="wishes">
+                <div class="wish-card">
+                    <div class="icon">🌈</div>
+                    <h3>Endless Happiness</h3>
+                    <p>May every moment be filled with joy and laughter</p>
+                </div>
+                <div class="wish-card">
+                    <div class="icon">💪</div>
+                    <h3>Strength & Success</h3>
+                    <p>To achieve all your dreams and goals</p>
+                </div>
+                <div class="wish-card">
+                    <div class="icon">💞</div>
+                    <h3>Love & Peace</h3>
+                    <p>To feel love and peace in everything you do</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="hearts">💕 💕 💕</div>
+            <p>Made with love for the most special person in my life 💖</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = (Math.random() * 4 + 3) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add click interaction to gallery
+        const photoItems = document.querySelectorAll('.photo-item');
+        photoItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
